@@ -280,12 +280,14 @@ Message: ${message || "Not provided"}`;
 
   function toggleMenu() {
     mobileMenu.classList.add("active");
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
   }
 
   function closeMenu() {
     mobileMenu.classList.remove("active");
-    document.body.style.overflow = "auto";
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
   }
 </script>
 
