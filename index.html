@@ -14,18 +14,46 @@
 
 <!-- NAVBAR -->
 <header class="navbar">
-  <nav class="nav-left">
+  <!-- LEFT -->
+  <div class="nav-left">
     <a href="#home">Home</a>
     <a href="#services">Services</a>
     <a href="#portfolio">Portfolio</a>
-  </nav>
+  </div>
 
-  <nav class="nav-right">
+  <!-- RIGHT -->
+  <div class="nav-right">
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
     <a class="book-btn" onclick="openModal()">Book Now</a>
-  </nav>
+  </div>
+
+ <!-- HAMBURGER -->
+<div class="hamburger" onclick="toggleMenu()" id="hamburger">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-header">
+    <span class="mobile-brand">Menu</span>
+    <span class="close-menu" onclick="closeMenu()">✕</span>
+  </div>
+
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+
+  <a class="book-btn mobile-book" onclick="openModal(); closeMenu()">
+    Book Now
+  </a>
+</div>
 </header>
+  
 
 <!-- HERO -->
 <section id="home" class="hero">
@@ -244,6 +272,23 @@ Message: ${message || "Not provided"}`;
     );
   }
 </script>
+
+
+
+<script>
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  function toggleMenu() {
+    mobileMenu.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.remove("active");
+    document.body.style.overflow = "auto";
+  }
+</script>
+
 
 </body>
 </html>
