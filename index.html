@@ -123,25 +123,25 @@
   <h2>Contact</h2>
   <p class="contact-subtitle">Get in touch for bookings or queries</p>
 
-  <form class="contact-card">
+  <form class="contact-card" onsubmit="sendContactWhatsApp(event)">
     <div class="contact-row">
       <div class="contact-group">
         <label>Your Name</label>
-        <input type="text" required>
+        <input type="text" id="cname" required>
       </div>
 
       <div class="contact-group">
         <label>Phone Number</label>
-        <input type="tel" required>
+        <input type="tel" id="cphone" required>
       </div>
     </div>
 
     <div class="contact-group">
       <label>Your Message</label>
-      <textarea></textarea>
+      <textarea id="cmessage"></textarea>
     </div>
 
-    <button class="cta contact-btn">Send Message</button>
+    <button type="submit" class="cta contact-btn">Send Message</button>
   </form>
 </section>
 
@@ -172,13 +172,17 @@
 
       <textarea id="bnotes" placeholder="Preferred date, time, location"></textarea>
 
-      <button type="button" class="cta" onclick="sendWhatsApp()">Send on WhatsApp</button>
+      <button type="button" class="cta" onclick="sendBookingWhatsApp()">
+        Send on WhatsApp
+      </button>
     </form>
   </div>
 </div>
 
+<!-- JAVASCRIPT -->
 <script>
   const modal = document.getElementById("bookingModal");
+  const ownerNumber = "917734076389"; // YOUR WHATSAPP NUMBER
 
   function openModal() {
     modal.classList.add("show");
@@ -188,20 +192,18 @@
     modal.classList.remove("show");
   }
 
-  function sendWhatsApp() {
-    const name = document.getElementById("bname").value.trim();
-    const phone = document.getElementById("bphone").value.trim();
-    const service = document.getElementById("bservice").value;
-    const notes = document.getElementById("bnotes").value.trim();
+  function sendBookingWhatsApp() {
+    const name = bname.value.trim();
+    const phone = bphone.value.trim();
+    const service = bservice.value;
+    const notes = bnotes.value.trim();
 
     if (!name || !phone || !service) {
       alert("Please fill all required fields");
       return;
     }
 
-    const ownerNumber = "917734076389";
-
-    const message = 
+    const msg =
 `✨ New Booking Request ✨
 
 Name: ${name}
@@ -209,10 +211,37 @@ Phone: ${phone}
 Service: ${service}
 Notes: ${notes || "Not provided"}`;
 
-    const url = `https://wa.me/${ownerNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+    window.open(
+      `https://wa.me/${ownerNumber}?text=${encodeURIComponent(msg)}`,
+      "_blank"
+    );
 
     closeModal();
+  }
+
+  function sendContactWhatsApp(event) {
+    event.preventDefault();
+
+    const name = cname.value.trim();
+    const phone = cphone.value.trim();
+    const message = cmessage.value.trim();
+
+    if (!name || !phone) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    const msg =
+`📩 New Contact Message
+
+Name: ${name}
+Phone: ${phone}
+Message: ${message || "Not provided"}`;
+
+    window.open(
+      `https://wa.me/${ownerNumber}?text=${encodeURIComponent(msg)}`,
+      "_blank"
+    );
   }
 </script>
 
